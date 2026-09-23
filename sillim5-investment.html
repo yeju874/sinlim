@@ -1,0 +1,1039 @@
+<title>신림5구역 투자대장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --paper:#F5F3EE;
+    --surface:#FFFFFF;
+    --surface-2:#FBFAF5;
+    --ink:#1E2430;
+    --ink-soft:#565F6E;
+    --muted:#8B8478;
+    --line:#DDD6C7;
+    --line-strong:#C8BFA9;
+    --accent:#8C6A3F;
+    --accent-ink:#6E5330;
+    --accent-soft:rgba(140,106,63,0.12);
+    --good:#0ca30c;
+    --good-bg:rgba(12,163,12,0.10);
+    --warning:#b8862e;
+    --warning-bg:rgba(250,178,25,0.16);
+    --critical:#b3392f;
+    --critical-bg:rgba(208,59,59,0.09);
+    --shadow:0 1px 2px rgba(30,36,48,0.05), 0 10px 28px -16px rgba(30,36,48,0.22);
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300;
+    --font-display:'Noto Serif KR','Nanum Myeongjo',serif;
+    --font-body:'Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono','Consolas',monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181D; --surface:#1B2128; --surface-2:#1F252D;
+      --ink:#ECE7DC; --ink-soft:#B7B2A4; --muted:#867F70;
+      --line:#2C333D; --line-strong:#3A424E;
+      --accent:#C7A06B; --accent-ink:#D8B583; --accent-soft:rgba(199,160,107,0.16);
+      --good:#3fc23f; --good-bg:rgba(63,194,63,0.14);
+      --warning:#e0a934; --warning-bg:rgba(224,169,52,0.14);
+      --critical:#e07268; --critical-bg:rgba(224,114,104,0.14);
+      --shadow:0 1px 2px rgba(0,0,0,0.35), 0 14px 32px -18px rgba(0,0,0,0.6);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#3fb23f;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181D; --surface:#1B2128; --surface-2:#1F252D;
+    --ink:#ECE7DC; --ink-soft:#B7B2A4; --muted:#867F70;
+    --line:#2C333D; --line-strong:#3A424E;
+    --accent:#C7A06B; --accent-ink:#D8B583; --accent-soft:rgba(199,160,107,0.16);
+    --good:#3fc23f; --good-bg:rgba(63,194,63,0.14);
+    --warning:#e0a934; --warning-bg:rgba(224,169,52,0.14);
+    --critical:#e07268; --critical-bg:rgba(224,114,104,0.14);
+    --shadow:0 1px 2px rgba(0,0,0,0.35), 0 14px 32px -18px rgba(0,0,0,0.6);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#3fb23f;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding-top:52px;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-soft); }
+  a{ color:var(--accent-ink); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .page{
+    max-width:920px;
+    margin:0 auto;
+    padding:48px 20px 80px;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+  }
+
+  /* ---- masthead ---- */
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding-bottom:22px;
+    border-bottom:2px solid var(--ink);
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px,4vw,38px);
+    margin:0;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  .masthead-sub{
+    color:var(--ink-soft);
+    font-size:14.5px;
+  }
+
+  /* ---- property register block ---- */
+  .register{
+    background:var(--surface-2);
+    border:1px solid var(--line-strong);
+    border-radius:4px;
+    padding:22px 24px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:18px 28px;
+  }
+  .register-field{ display:flex; flex-direction:column; gap:4px; }
+  .register-field .label{
+    font-size:11.5px; color:var(--muted); letter-spacing:0.06em;
+  }
+  .register-field .value{
+    font-family:var(--font-mono);
+    font-size:15px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  .register-field .value.emph{ color:var(--accent-ink); font-weight:600; font-size:16px; }
+
+  section{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .section-head{ display:flex; flex-direction:column; gap:3px; }
+  .section-title{
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:600;
+    margin:0;
+  }
+  .section-note{ font-size:13px; color:var(--ink-soft); }
+
+  /* ---- stat tiles ---- */
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:12px;
+  }
+  .stat-tile{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .stat-tile .label{ font-size:12.5px; color:var(--muted); }
+  .stat-tile .value{
+    font-family:var(--font-mono);
+    font-size:22px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-tile .sub{ font-size:12.5px; color:var(--ink-soft); }
+  .stat-tile.highlight{ border-color:var(--accent); }
+  .stat-tile.highlight .value{ color:var(--accent-ink); }
+  .stat-tile.profit{ border-color:var(--good); }
+  .stat-tile.profit .value{ color:var(--good); }
+
+  /* ---- cashflow ---- */
+  .cashflow{ display:flex; flex-direction:column; gap:10px; }
+  .cf-item{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .cf-item.emph{ border-color:var(--critical); }
+  .cf-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .cf-stage{ font-size:11.5px; color:var(--muted); letter-spacing:0.02em; }
+  .cf-title{ font-weight:600; font-size:15px; }
+  .cf-tag{
+    flex:none;
+    font-size:11px;
+    padding:3px 9px;
+    border-radius:999px;
+    font-weight:700;
+    letter-spacing:0.01em;
+    white-space:nowrap;
+  }
+  .cf-tag.neutral{ background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+  .cf-tag.good{ background:var(--good-bg); color:var(--good); }
+  .cf-tag.accent{ background:var(--accent-soft); color:var(--accent-ink); }
+  .cf-tag.warning{ background:var(--warning-bg); color:var(--warning); }
+  .cf-tag.critical{ background:var(--critical-bg); color:var(--critical); }
+  .cf-amount{
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+    font-weight:700;
+    font-size:18px;
+  }
+  .cf-desc{ font-size:13px; color:var(--ink-soft); }
+  .cf-breakdown{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
+  .cf-chip{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    font-variant-numeric:tabular-nums;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:4px 9px;
+    color:var(--ink-soft);
+  }
+
+  /* ---- funding composition ---- */
+  .bar{
+    display:flex;
+    width:100%;
+    height:40px;
+    border-radius:5px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .bar-seg{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-family:var(--font-mono);
+    font-size:12px;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:2px solid var(--surface);
+  }
+  .bar-seg:last-child{ border-right:none; }
+
+  .legend{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:8px 20px;
+  }
+  .legend-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+  .swatch{ width:11px; height:11px; border-radius:3px; flex:none; }
+  .legend-row .name{ flex:1; color:var(--ink); }
+  .legend-row .amt{
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+  .legend-row .pct{
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+    width:48px;
+    text-align:right;
+  }
+
+  /* ---- tables ---- */
+  .table-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:6px; }
+  table{ width:100%; border-collapse:collapse; min-width:560px; background:var(--surface); }
+  th,td{
+    padding:11px 14px;
+    text-align:left;
+    font-size:13.5px;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  th{
+    font-size:11.5px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+    font-weight:600;
+    background:var(--surface-2);
+  }
+  td.num, th.num{
+    text-align:right;
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  tfoot td{
+    font-weight:700;
+    background:var(--surface-2);
+    border-top:2px solid var(--line-strong);
+    border-bottom:none;
+  }
+  .tag{
+    display:inline-block;
+    font-size:11px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:var(--accent-soft);
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+
+  /* ---- callout ---- */
+  .callout{
+    display:flex;
+    gap:14px;
+    padding:18px 20px;
+    border-radius:6px;
+    background:var(--critical-bg);
+    border:1px solid color-mix(in srgb, var(--critical) 35%, transparent);
+  }
+  .callout .icon{ flex:none; width:22px; height:22px; color:var(--critical); margin-top:2px; }
+  .callout h3{
+    margin:0 0 6px;
+    font-size:15px;
+    font-family:var(--font-body);
+    font-weight:700;
+    color:var(--critical);
+  }
+  .callout p{ margin:0 0 8px; font-size:14px; color:var(--ink); }
+  .callout p:last-child{ margin-bottom:0; }
+  .callout .figures{
+    display:flex; gap:22px; flex-wrap:wrap; margin-top:10px;
+  }
+  .callout .figures div{ display:flex; flex-direction:column; gap:2px; }
+  .callout .figures .k{ font-size:11.5px; color:var(--ink-soft); }
+  .callout .figures .v{ font-family:var(--font-mono); font-weight:600; font-variant-numeric:tabular-nums; }
+  .callout.warning{ background:var(--warning-bg); border-color:color-mix(in srgb, var(--warning) 35%, transparent); }
+  .callout.warning .icon{ color:var(--warning); }
+  .callout.warning h3{ color:var(--warning); }
+
+  /* ---- decision grid ---- */
+  .decision-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:12px;
+  }
+  .decision-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:4px solid var(--line-strong);
+    border-radius:6px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .decision-card.good{ border-left-color:var(--good); }
+  .decision-card.critical{ border-left-color:var(--critical); }
+  .decision-tag{ font-size:11.5px; font-weight:700; letter-spacing:0.02em; color:var(--muted); }
+  .decision-card.good .decision-tag{ color:var(--good); }
+  .decision-card.critical .decision-tag{ color:var(--critical); }
+  .decision-action{ font-weight:700; font-size:14.5px; margin:0; color:var(--ink); }
+  .decision-desc{ font-size:13px; color:var(--ink-soft); margin:0; }
+
+  /* ---- timeline ---- */
+  .timeline{ display:flex; flex-direction:column; }
+  .tl-item{
+    display:grid;
+    grid-template-columns:28px 1fr;
+    column-gap:14px;
+  }
+  .tl-rail{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .tl-dot{
+    width:13px; height:13px; border-radius:50%;
+    background:var(--surface);
+    border:2.5px solid var(--line-strong);
+    margin-top:4px;
+    flex:none;
+  }
+  .tl-item.done .tl-dot{ background:var(--good); border-color:var(--good); }
+  .tl-item.next .tl-dot{ background:var(--surface); border-color:var(--accent); }
+  .tl-line{ width:2px; flex:1; background:var(--line); margin:2px 0; }
+  .tl-item:last-of-type .tl-line{ display:none; }
+  .tl-body{ padding-bottom:20px; display:flex; flex-direction:column; gap:2px; }
+  .tl-head{ display:flex; align-items:center; gap:9px; }
+  .tl-title{ font-weight:600; font-size:14.5px; }
+  .tl-item.done .tl-title{ color:var(--ink); }
+  .tl-item:not(.done) .tl-title{ color:var(--ink-soft); }
+  .tl-status{
+    font-size:10.5px; padding:2px 7px; border-radius:999px; font-weight:700; letter-spacing:0.02em;
+  }
+  .tl-status.done{ background:var(--good-bg); color:var(--good); }
+  .tl-status.next{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tl-status.wait{ background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+  .tl-desc{ font-size:13px; color:var(--muted); }
+  .tl-item.marker .tl-dot{ width:9px; height:9px; margin-top:6px; background:var(--critical); border-color:var(--critical); }
+  .tl-item.marker .tl-body{ padding-bottom:14px; }
+  .tl-item.marker .tl-title{ color:var(--critical); font-size:13px; }
+
+  .pending-note{
+    border:1.5px dashed var(--line-strong);
+    border-radius:6px;
+    padding:14px 16px;
+    font-size:13px;
+    color:var(--ink-soft);
+    background:var(--surface-2);
+  }
+
+  footer{
+    margin-top:10px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:12px;
+    color:var(--muted);
+    font-family:var(--font-mono);
+  }
+
+  @media (max-width:480px){
+    .callout{ flex-direction:column; }
+    .tl-item{ grid-template-columns:22px 1fr; }
+    .edit-toolbar{ padding:0 12px; gap:8px; }
+    .et-btn{ padding:6px 10px; font-size:12.5px; }
+    .et-left{ font-size:11.5px; }
+  }
+
+  /* ---- edit toolbar ---- */
+  .edit-toolbar{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    height:52px;
+    background:var(--surface);
+    border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:0 20px;
+  }
+  .et-left{
+    font-size:12.5px;
+    font-family:var(--font-mono);
+    color:var(--ink-soft);
+    flex:1 1 auto;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .et-left.err{ color:var(--critical); }
+  .et-right{ display:flex; align-items:center; gap:8px; flex:none; }
+  .et-btn{
+    font-family:var(--font-body);
+    font-size:13px;
+    font-weight:600;
+    padding:7px 14px;
+    border-radius:6px;
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .et-btn:hover{ background:var(--surface-2); }
+  .et-btn.primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .et-btn.primary:hover{ filter:brightness(1.06); }
+  .et-btn.ghost{ background:transparent; border-color:transparent; color:var(--ink-soft); }
+  .et-btn:disabled{ opacity:0.5; cursor:default; }
+  body.editing [contenteditable="true"]{
+    outline:1.5px dashed var(--accent);
+    outline-offset:2px;
+    border-radius:3px;
+    cursor:text;
+  }
+  body.editing [contenteditable="true"]:hover{ background:var(--accent-soft); }
+  body.editing [contenteditable="true"]:focus{
+    outline:2px solid var(--accent);
+    background:var(--accent-soft);
+  }
+</style>
+
+<div class="edit-toolbar">
+  <span id="et-status" class="et-left">신림5구역 투자대장</span>
+  <div class="et-right">
+    <button id="et-edit" class="et-btn primary" type="button">수정</button>
+    <button id="et-save" class="et-btn primary" type="button" hidden>저장</button>
+    <button id="et-cancel" class="et-btn ghost" type="button" hidden>취소</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="masthead">
+    <h1>신림5구역 투자대장</h1>
+    <div class="masthead-sub">서울특별시 관악구 신림동 412-369, 302호 — 재개발 정비사업 진행 중</div>
+  </div>
+
+  <div class="register">
+    <div class="register-field">
+      <span class="label">소재지</span>
+      <span class="value">관악구 신림동 412-369, 302호</span>
+    </div>
+    <div class="register-field">
+      <span class="label">대지권면적</span>
+      <span class="value">33.60㎡</span>
+    </div>
+    <div class="register-field">
+      <span class="label">전용면적</span>
+      <span class="value">36.06㎡</span>
+    </div>
+    <div class="register-field">
+      <span class="label">매매대금</span>
+      <span class="value emph">429,000,000원</span>
+    </div>
+    <div class="register-field">
+      <span class="label">현재 단계</span>
+      <span class="value">사업시행자지정고시 완료</span>
+    </div>
+    <div class="register-field">
+      <span class="label">예상 입주</span>
+      <span class="value">2034년경 (착공 후 약 8년 · 유동적)</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">투자 요약</h2>
+      <div class="section-note">잔금까지 완납 완료 — 매매대금 429,000,000원 기준</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-tile">
+        <span class="label">총 매매대금</span>
+        <span class="value">429,000,000원</span>
+        <span class="sub">잔금 완납</span>
+      </div>
+      <div class="stat-tile">
+        <span class="label">자기자금(현금)</span>
+        <span class="value">185,000,000원</span>
+        <span class="sub">총액의 43.1%</span>
+      </div>
+      <div class="stat-tile">
+        <span class="label">총 대출금</span>
+        <span class="value">124,000,000원</span>
+        <span class="sub">가중평균 금리 4.63%</span>
+      </div>
+      <div class="stat-tile">
+        <span class="label">연간 이자비용</span>
+        <span class="value">5,745,000원</span>
+        <span class="sub">월 약 478,750원</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">자금 조달 구성</h2>
+      <div class="section-note">매매대금 429,000,000원을 조달한 6개 자금원의 구성비</div>
+    </div>
+
+    <div class="bar">
+      <div class="bar-seg" style="width:43.1%; background:var(--s1);">43.1%</div>
+      <div class="bar-seg" style="width:28.0%; background:var(--s2);">28.0%</div>
+      <div class="bar-seg" style="width:16.3%; background:var(--s3);"></div>
+      <div class="bar-seg" style="width:8.2%; background:var(--s4);"></div>
+      <div class="bar-seg" style="width:2.3%; background:var(--s5);"></div>
+      <div class="bar-seg" style="width:2.1%; background:var(--s6);"></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-row"><span class="swatch" style="background:var(--s1);"></span><span class="name">자기자금(현금)</span><span class="amt">185,000,000원</span><span class="pct">43.1%</span></div>
+      <div class="legend-row"><span class="swatch" style="background:var(--s2);"></span><span class="name">전세보증금</span><span class="amt">120,000,000원</span><span class="pct">28.0%</span></div>
+      <div class="legend-row"><span class="swatch" style="background:var(--s3);"></span><span class="name">회사대출</span><span class="amt">70,000,000원</span><span class="pct">16.3%</span></div>
+      <div class="legend-row"><span class="swatch" style="background:var(--s4);"></span><span class="name">신한은행 신용대출</span><span class="amt">35,000,000원</span><span class="pct">8.2%</span></div>
+      <div class="legend-row"><span class="swatch" style="background:var(--s5);"></span><span class="name">마이너스통장</span><span class="amt">10,000,000원</span><span class="pct">2.3%</span></div>
+      <div class="legend-row"><span class="swatch" style="background:var(--s6);"></span><span class="name">KB 청약담보대출</span><span class="amt">9,000,000원</span><span class="pct">2.1%</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">대출 내역 상세</h2>
+      <div class="section-note">전세보증금은 무이자 자금이라 이자비용 계산에서 제외</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>대출기관</th>
+            <th>항목</th>
+            <th class="num">대출금액</th>
+            <th class="num">금리</th>
+            <th class="num">연이자</th>
+            <th class="num">월이자</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>신한은행</td>
+            <td>신용대출</td>
+            <td class="num">35,000,000원</td>
+            <td class="num">4.60%</td>
+            <td class="num">1,610,000원</td>
+            <td class="num">134,167원</td>
+          </tr>
+          <tr>
+            <td>회사</td>
+            <td>사내대출</td>
+            <td class="num">70,000,000원</td>
+            <td class="num">4.64%</td>
+            <td class="num">3,248,000원</td>
+            <td class="num">270,667원</td>
+          </tr>
+          <tr>
+            <td>은행 마이너스통장</td>
+            <td>마이너스통장 <span class="tag">잔액 감소중</span></td>
+            <td class="num">10,000,000원</td>
+            <td class="num">5.54%</td>
+            <td class="num">554,000원</td>
+            <td class="num">46,167원</td>
+          </tr>
+          <tr>
+            <td>KB국민은행</td>
+            <td>청약담보대출</td>
+            <td class="num">9,000,000원</td>
+            <td class="num">3.70%</td>
+            <td class="num">333,000원</td>
+            <td class="num">27,750원</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">합계</td>
+            <td class="num">124,000,000원</td>
+            <td class="num">4.63%</td>
+            <td class="num">5,745,000원</td>
+            <td class="num">478,750원</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="section-note">마이너스통장(10,000,000원 · 5.54%)은 급여로 지속 상환 예정이라 잔액과 이자비용이 점차 줄어듭니다. 위 수치는 2026-09-23 기준입니다.</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">전세보증금 반환 리스크</h2>
+    </div>
+    <div class="callout">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div>
+        <h3>2027년 상반기, 자금 확보 필요</h3>
+        <p>현재 세입자 보증금 120,000,000원이 들어와 있으며, 내년 상반기 만기로 반환 예정입니다. 신규 세입자를 구해 받는 보증금으로 충당할 계획이나, 기존 세입자 퇴거 시점까지 새 세입자를 구하지 못하면 자금 공백이 생길 수 있습니다.</p>
+        <p>만기 전 임대 시장 상황을 미리 확인하고, 신규 세입자를 조기에 확보하거나 공백 기간을 메울 대체 자금 계획을 세워두는 것을 권장합니다.</p>
+        <div class="figures">
+          <div><span class="k">반환 예정액</span><span class="v">120,000,000원</span></div>
+          <div><span class="k">예상 시기</span><span class="v">2027년 상반기</span></div>
+          <div><span class="k">대응 계획</span><span class="v">신규 세입자 보증금으로 충당</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">정비사업 진행 단계</h2>
+      <div class="section-note">신림5구역 재개발 절차 — 잔여 단계 예상 소요기간 합산 약 7~9년 (입주 8년 후 추정과 대략 일치)</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item done">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">사업시행자 지정</span><span class="tl-status done">완료</span></div>
+          <div class="tl-desc">사업시행자 지정이 고시된 상태</div>
+        </div>
+      </div>
+      <div class="tl-item next">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">시공사 선정</span><span class="tl-status next">다음 단계</span></div>
+          <div class="tl-desc">예상 소요기간 약 6개월 ~ 1년</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">건축심의 및 사업시행인가</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">예상 소요기간 약 1년 ~ 1.5년</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">감정평가 &amp; 조합원 분양신청</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">예상 소요기간 약 6개월</div>
+        </div>
+      </div>
+      <div class="tl-item marker">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">매도 고려 시점 — 투기과열지구라면 관리처분인가 전 마지막 매도 가능 시점</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">관리처분인가</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">예상 소요기간 약 1년</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">이주 및 철거</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">예상 소요기간 약 1년 ~ 1.5년</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">착공 및 일반분양</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">예상 소요기간 약 3년 ~ 3.5년</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-rail"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <div class="tl-head"><span class="tl-title">준공 · 입주</span><span class="tl-status wait">예정</span></div>
+          <div class="tl-desc">약 8년 후 예상 (2034년경, 사업 진행에 따라 유동적)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">종전권리 및 추정분담금</h2>
+      <div class="section-note">정보제공통지 기준 — 관리처분인가 시 확정</div>
+    </div>
+
+    <div class="register">
+      <div class="register-field">
+        <span class="label">종전 토지면적</span>
+        <span class="value">33.700㎡</span>
+      </div>
+      <div class="register-field">
+        <span class="label">종전 건축물면적</span>
+        <span class="value">36.06㎡</span>
+      </div>
+      <div class="register-field">
+        <span class="label">감정평가액(권리가액)</span>
+        <span class="value emph">380,000,000원</span>
+      </div>
+      <div class="register-field">
+        <span class="label">희망 평형</span>
+        <span class="value">24평</span>
+      </div>
+      <div class="register-field">
+        <span class="label">추정분담금</span>
+        <span class="value emph">400,000,000원</span>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-tile highlight">
+        <span class="label">총 투자비용(이자 포함)</span>
+        <span class="value">874,960,000원</span>
+        <span class="sub">매매대금 429,000,000 + 추정분담금 400,000,000 + 이자비용 45,960,000</span>
+      </div>
+      <div class="stat-tile">
+        <span class="label">참고 시세 (25평 기준)</span>
+        <span class="value">1,470,000,000원</span>
+        <span class="sub">서울대입구 E편한세상 실거래가 기준</span>
+      </div>
+      <div class="stat-tile profit">
+        <span class="label">예상 이익</span>
+        <span class="value">595,040,000원</span>
+        <span class="sub">참고 시세 − 총 투자비용, 수익률 약 68.0%</span>
+      </div>
+    </div>
+    <div class="section-note">이자비용은 현재 대출 잔액·금리가 유지된다고 가정하고 입주 예상 시점(8년)까지 단순 추정한 수치입니다(연 5,745,000원 × 8년). 마이너스통장을 계속 상환해 나가면 실제 이자비용은 더 낮아질 수 있습니다.</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">단계별 자금 필요 시점</h2>
+      <div class="section-note">추정분담금 400,000,000원 기준 — 계약금 10% · 중도금 60% · 잔금 30%</div>
+    </div>
+
+    <div class="cashflow">
+      <div class="cf-item">
+        <div class="cf-top">
+          <div><span class="cf-stage">관리처분인가</span><br><span class="cf-title">권리가액 · 분양가 확정</span></div>
+          <span class="cf-tag neutral">확정 이벤트</span>
+        </div>
+        <div class="cf-desc">전후자산 감정평가로 권리가액과 신축 분양가가 확정되고, 추가분담금(신축 분양가 − 권리가액)이 이때 확정됩니다.</div>
+      </div>
+
+      <div class="cf-item">
+        <div class="cf-top">
+          <div><span class="cf-stage">이주 단계</span><br><span class="cf-title">이주비 대출</span></div>
+          <span class="cf-tag good">자금 수령</span>
+        </div>
+        <div class="cf-desc">신탁사 · 금융권에서 이주비 대출이 실행되며, 이사할 집의 전세 · 월세 보증금과 기존 세입자 보증금 반환에 사용합니다. 지출이 아닌 수령 단계입니다.</div>
+      </div>
+
+      <div class="cf-item">
+        <div class="cf-top">
+          <div><span class="cf-stage">착공 및 일반분양</span><br><span class="cf-title">추가분담금 계약금</span></div>
+          <span class="cf-tag accent">납부 1</span>
+        </div>
+        <div class="cf-amount">40,000,000원</div>
+        <div class="cf-desc">추가분담금의 10%를 계약금으로 납부합니다.</div>
+      </div>
+
+      <div class="cf-item">
+        <div class="cf-top">
+          <div><span class="cf-stage">공사 진행 중</span><br><span class="cf-title">추가분담금 중도금</span></div>
+          <span class="cf-tag warning">납부 2 · 대출 충당</span>
+        </div>
+        <div class="cf-amount">240,000,000원</div>
+        <div class="cf-desc">추가분담금의 60%. 대부분 중도금대출로 충당하며, 입주 시점에 잔금과 합산 정산합니다.</div>
+      </div>
+
+      <div class="cf-item emph">
+        <div class="cf-top">
+          <div><span class="cf-stage">입주 시점</span><br><span class="cf-title">분담금 잔금 + 대출 정산</span></div>
+          <span class="cf-tag critical">납부 3 · 최대 자금 소요</span>
+        </div>
+        <div class="cf-amount">120,000,000원 + 대출 정산</div>
+        <div class="cf-desc">분담금 잔금(30%) · 이주비대출금 · 중도금대출금을 모두 정산해야 합니다. 보통 신축 아파트 주택담보대출로 전환하거나, 전세를 놓아 보증금으로 상환합니다.</div>
+        <div class="cf-breakdown">
+          <span class="cf-chip">분담금 잔금 120,000,000원</span>
+          <span class="cf-chip">중도금대출 정산 240,000,000원</span>
+          <span class="cf-chip">이주비대출 정산 — 금액 미정</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">중도 매도 시 리스크 — 전매제한 · 임대사업자 등록 말소</h2>
+      <div class="section-note">관리처분인가를 기점으로 매도 가능 여부와 조건이 달라집니다</div>
+    </div>
+
+    <div class="callout warning">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <h3>관리처분인가 시점에 걸리는 두 가지 규정</h3>
+        <p><strong>투기과열지구 전매제한</strong> — 투기과열지구로 지정된 구역은 관리처분인가 이후 조합원 지위 양도(매도)가 금지됩니다. 매도하려면 관리처분인가 전까지만 가능합니다.</p>
+        <p><strong>임대사업자 등록 직권 말소</strong> — 관리처분인가가 나면 재개발로 주택이 물리적으로 멸실될 예정이라 임대주택으로서의 기능을 상실합니다. 이 경우 과태료 없이 지자체 직권으로 임대사업자 등록이 말소됩니다.</p>
+      </div>
+    </div>
+
+    <div class="decision-grid">
+      <div class="decision-card good">
+        <span class="decision-tag">투기과열지구가 아닌 경우</span>
+        <p class="decision-action">관리처분인가 이후에 매도하는 것이 가장 유리합니다.</p>
+        <p class="decision-desc">전매제한이 없어 인가 이후에도 자유롭게 매도할 수 있고, 이 시점엔 임대사업자 등록도 이미 직권 말소된 뒤라 의무임대기간 부담 없이 매도할 수 있습니다.</p>
+      </div>
+      <div class="decision-card critical">
+        <span class="decision-tag">투기과열지구인 경우</span>
+        <p class="decision-action">관리처분인가 이전에 매도해야 합니다.</p>
+        <p class="decision-desc">인가 이후에는 조합원 지위 양도(전매)가 금지되기 때문입니다. 단, 이 시점은 임대사업자 등록이 아직 말소되기 전이라 의무임대기간을 채우지 못한 상태이므로, 과태료를 부담하거나 등록된 다른 임대사업자에게 매도(지위 승계)해야 과태료를 피할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>최종 업데이트 2026-09-23</span>
+    <span>대출 잔액·금리는 변동될 수 있으며 위 수치는 작성 시점 기준입니다</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var EDITABLE_SELECTOR = [
+    '.masthead h1', '.masthead-sub', '.eyebrow',
+    '.register-field .label', '.register-field .value',
+    '.section-title', '.section-note',
+    '.stat-tile .label', '.stat-tile .value', '.stat-tile .sub',
+    '.legend-row .name', '.legend-row .amt', '.legend-row .pct',
+    'table th', 'table td', '.tag',
+    '.callout h3', '.callout p', '.callout .figures .k', '.callout .figures .v',
+    '.tl-title', '.tl-desc', '.tl-status',
+    '.cf-stage', '.cf-title', '.cf-desc', '.cf-amount', '.cf-chip', '.cf-tag',
+    '.decision-tag', '.decision-action', '.decision-desc',
+    'footer span'
+  ].join(',');
+
+  var pageEl = document.querySelector('.page');
+  var editBtn = document.getElementById('et-edit');
+  var saveBtn = document.getElementById('et-save');
+  var cancelBtn = document.getElementById('et-cancel');
+  var statusEl = document.getElementById('et-status');
+  var defaultStatus = statusEl.textContent;
+  var snapshot = null;
+
+  function editableEls(){
+    return Array.prototype.filter.call(
+      document.querySelectorAll(EDITABLE_SELECTOR),
+      function(el){ return !el.querySelector('*'); }
+    );
+  }
+
+  function setStatus(text, isError){
+    statusEl.textContent = text;
+    statusEl.classList.toggle('err', !!isError);
+  }
+
+  function enterEdit(){
+    snapshot = pageEl.innerHTML;
+    editableEls().forEach(function(el){ el.setAttribute('contenteditable', 'true'); });
+    document.body.classList.add('editing');
+    editBtn.hidden = true;
+    saveBtn.hidden = false;
+    cancelBtn.hidden = false;
+    setStatus('편집 모드 — 텍스트를 클릭해서 수정하세요');
+  }
+
+  function stripEditable(){
+    document.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+    document.body.classList.remove('editing');
+  }
+
+  function exitEditUI(){
+    stripEditable();
+    editBtn.hidden = false;
+    saveBtn.hidden = true;
+    cancelBtn.hidden = true;
+  }
+
+  function cancelEdit(){
+    if(snapshot !== null){ pageEl.innerHTML = snapshot; }
+    exitEditUI();
+    setStatus(defaultStatus);
+  }
+
+  function buildFullHtml(){
+    var head = [
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      document.querySelector('title').outerHTML,
+      Array.prototype.map.call(document.querySelectorAll('link[rel]'), function(l){ return l.outerHTML; }).join('\n'),
+      document.querySelector('style').outerHTML
+    ].join('\n');
+    var body = document.querySelector('.edit-toolbar').outerHTML + '\n' + pageEl.outerHTML;
+    return '<!doctype html>\n<html lang="ko">\n<head>\n' + head + '\n</head>\n<body>\n' + body + '\n</body>\n</html>';
+  }
+
+  async function getArtifactAPI(){
+    if(typeof window.claude === 'undefined' || !window.claude.use) return null;
+    try{ return await window.claude.use('artifact'); }catch(e){ return null; }
+  }
+
+  async function getDownloadsAPI(){
+    if(typeof window.claude === 'undefined' || !window.claude.use) return null;
+    try{ return await window.claude.use('downloads'); }catch(e){ return null; }
+  }
+
+  async function offerDownload(html){
+    var dl = await getDownloadsAPI();
+    if(dl){
+      try{
+        await dl.save({ filename: 'sillim5-investment.html', data: html });
+        return true;
+      }catch(e){ return false; }
+    }
+    try{
+      var blob = new Blob([html], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'sillim5-investment.html';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      return true;
+    }catch(e){ return false; }
+  }
+
+  async function saveEdit(){
+    saveBtn.disabled = true; cancelBtn.disabled = true;
+    stripEditable();
+    var html = buildFullHtml();
+    var api = await getArtifactAPI();
+    if(api){
+      setStatus('저장 중...');
+      try{
+        await api.publish(html);
+        setStatus('저장되었습니다');
+        exitEditUI();
+      }catch(err){
+        var code = err && err.code;
+        if(code === 'conflict'){
+          setStatus('다른 곳에서 먼저 저장되어 최신 내용으로 곧 새로고침됩니다', true);
+        } else {
+          setStatus('저장 실패: ' + (err && err.message ? err.message : '다시 시도해주세요'), true);
+          editableEls().forEach(function(el){ el.setAttribute('contenteditable', 'true'); });
+          document.body.classList.add('editing');
+        }
+      }
+    } else {
+      var dlOk = await offerDownload(html);
+      try{ localStorage.setItem('sillim5-investment-html', html); }catch(e){}
+      setStatus(dlOk ? 'html 파일로 저장했습니다 — 기존 파일을 교체해주세요' : '로컬에 임시 저장했습니다 (이 화면에서는 파일 저장을 지원하지 않아요)', !dlOk);
+      exitEditUI();
+    }
+    saveBtn.disabled = false; cancelBtn.disabled = false;
+  }
+
+  editBtn.addEventListener('click', enterEdit);
+  cancelBtn.addEventListener('click', cancelEdit);
+  saveBtn.addEventListener('click', saveEdit);
+
+  if(typeof window.claude === 'undefined'){
+    try{
+      var saved = localStorage.getItem('sillim5-investment-html');
+      if(saved){
+        var doc = new DOMParser().parseFromString(saved, 'text/html');
+        var savedPage = doc.querySelector('.page');
+        if(savedPage){ pageEl.replaceWith(savedPage); pageEl = savedPage; }
+      }
+    }catch(e){}
+  }
+})();
+</script>
