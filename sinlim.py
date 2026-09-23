@@ -8,7 +8,9 @@ import pathlib
 
 OUTPUT_FILENAME = "index.html"
 
-HTML_CONTENT = """<title>신림5구역 투자대장</title>
+HTML_CONTENT = """<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>신림5구역 투자대장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -443,6 +445,37 @@ HTML_CONTENT = """<title>신림5구역 투자대장</title>
     .edit-toolbar{ padding:0 12px; gap:8px; }
     .et-btn{ padding:6px 10px; font-size:12.5px; }
     .et-left{ font-size:11.5px; }
+  }
+
+  @media (max-width:640px){
+    .page{ padding:16px 16px 60px; gap:22px; }
+    .masthead-sub{ font-size:15px; }
+    .register-field .label{ font-size:12.5px; }
+    .register-field .value{ font-size:16px; }
+    .register-field .value.emph{ font-size:17px; }
+    .section-note{ font-size:14px; }
+    .stat-tile .label{ font-size:13.5px; }
+    .stat-tile .value{ font-size:23px; }
+    .stat-tile .sub{ font-size:13.5px; }
+    .legend-row{ font-size:15px; }
+    .legend-row .amt, .legend-row .pct{ font-size:14px; }
+    th, td{ font-size:14.5px; }
+    th{ font-size:12.5px; }
+    .callout h3{ font-size:16px; }
+    .callout p{ font-size:15px; }
+    .callout .figures .k{ font-size:12.5px; }
+    .tl-title{ font-size:15.5px; }
+    .tl-desc{ font-size:14px; }
+    .tl-status{ font-size:11.5px; }
+    .cf-stage{ font-size:12.5px; }
+    .cf-title{ font-size:16px; }
+    .cf-desc{ font-size:14px; }
+    .cf-amount{ font-size:19px; }
+    .cf-chip{ font-size:12.5px; }
+    .decision-tag{ font-size:12.5px; }
+    .decision-action{ font-size:15.5px; }
+    .decision-desc{ font-size:14px; }
+    footer{ font-size:13px; }
   }
 
   /* ---- edit toolbar ---- */
