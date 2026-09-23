@@ -976,7 +976,7 @@
     var dl = await getDownloadsAPI();
     if(dl){
       try{
-        await dl.save({ filename: 'sillim5-investment.html', data: html });
+        await dl.save({ filename: 'index.html', data: html });
         return true;
       }catch(e){ return false; }
     }
@@ -984,7 +984,7 @@
       var blob = new Blob([html], { type: 'text/html' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
-      a.href = url; a.download = 'sillim5-investment.html';
+      a.href = url; a.download = 'index.html';
       document.body.appendChild(a); a.click(); a.remove();
       URL.revokeObjectURL(url);
       return true;

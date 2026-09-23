@@ -1,12 +1,12 @@
 """신림5구역 투자대장 HTML 생성 스크립트.
 
-실행하면 같은 폴더에 sillim5-investment.html 파일을 만듭니다.
+실행하면 같은 폴더에 index.html 파일을 만듭니다.
     python sinlim.py
 """
 
 import pathlib
 
-OUTPUT_FILENAME = "sillim5-investment.html"
+OUTPUT_FILENAME = "index.html"
 
 HTML_CONTENT = """<title>신림5구역 투자대장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -986,7 +986,7 @@ HTML_CONTENT = """<title>신림5구역 투자대장</title>
     var dl = await getDownloadsAPI();
     if(dl){
       try{
-        await dl.save({ filename: 'sillim5-investment.html', data: html });
+        await dl.save({ filename: 'index.html', data: html });
         return true;
       }catch(e){ return false; }
     }
@@ -994,7 +994,7 @@ HTML_CONTENT = """<title>신림5구역 투자대장</title>
       var blob = new Blob([html], { type: 'text/html' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
-      a.href = url; a.download = 'sillim5-investment.html';
+      a.href = url; a.download = 'index.html';
       document.body.appendChild(a); a.click(); a.remove();
       URL.revokeObjectURL(url);
       return true;
